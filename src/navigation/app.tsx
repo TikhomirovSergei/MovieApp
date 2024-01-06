@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { DarkTheme, NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -8,74 +8,81 @@ import { SearchStack } from './searchStack';
 import { TicketsStack } from './ticketsStack';
 import { AccountStack } from './accountStack';
 import { DashboardStack } from './dashboardStack';
+import { TabScreenNames } from './types';
+import { TabBarButton, AnimatedTabBarButton } from './components';
 
 const Tab = createBottomTabNavigator();
 
 function App() {
+  const [currentTab, setCurrentTab] = React.useState(
+    `/${TabScreenNames.DashboardStack}`
+  );
+
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
+      <NavigationContainer theme={DarkTheme}>
         <Tab.Navigator
           initialRouteName={'DashboardStack'}
           screenOptions={{
             headerShown: false,
-            tabBarActiveTintColor: 'red'
+            tabBarLabel: ''
           }}
         >
           <Tab.Screen
-            name="DashboardStack"
+            name={TabScreenNames.DashboardStack}
             component={DashboardStack}
             options={{
-              tabBarLabel: '',
-              tabBarIcon: ({ color, size }) => (
+              tabBarIcon: ({ size }) => (
                 <MaterialCommunityIcons
                   name="movie-open-play-outline"
-                  color={color}
+                  color={'white'}
                   size={size}
                 />
-              )
+              ),
+              tabBarButton: props =>
+                AnimatedTabBarButton(props, currentTab, setCurrentTab)
             }}
           />
           <Tab.Screen
-            name="SearchStack"
+            name={TabScreenNames.SearchStack}
             component={SearchStack}
             options={{
-              tabBarLabel: '',
-              tabBarIcon: ({ color, size }) => (
+              tabBarIcon: ({ size }) => (
                 <MaterialCommunityIcons
                   name="movie-search"
-                  color={color}
+                  color={'white'}
                   size={size}
                 />
-              )
+              ),
+              tabBarButton: props => TabBarButton(props, setCurrentTab)
             }}
           />
           <Tab.Screen
-            name="TicketsStack"
+            name={TabScreenNames.TicketsStack}
             component={TicketsStack}
             options={{
-              tabBarLabel: '',
-              tabBarIcon: ({ color, size }) => (
+              tabBarIcon: ({ size }) => (
                 <MaterialCommunityIcons
                   name="ticket-outline"
-                  color={color}
+                  color={'white'}
                   size={size}
                 />
-              )
+              ),
+              tabBarButton: props => TabBarButton(props, setCurrentTab)
             }}
           />
           <Tab.Screen
-            name="AccountStack"
+            name={TabScreenNames.AccountStack}
             component={AccountStack}
             options={{
-              tabBarLabel: '',
-              tabBarIcon: ({ color, size }) => (
+              tabBarIcon: ({ size }) => (
                 <MaterialCommunityIcons
                   name="account"
-                  color={color}
+                  color={'white'}
                   size={size}
                 />
-              )
+              ),
+              tabBarButton: props => TabBarButton(props, setCurrentTab)
             }}
           />
         </Tab.Navigator>
