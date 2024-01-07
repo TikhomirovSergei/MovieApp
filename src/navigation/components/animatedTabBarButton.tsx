@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import { BottomTabBarButtonProps } from '@react-navigation/bottom-tabs';
 import {
   useAnimatedStyle,
@@ -17,29 +17,48 @@ export const AnimatedTabBarButton = (
   const offset = useSharedValue(0);
 
   React.useEffect(() => {
-    switch (currentTab) {
-      case `/${TabScreenNames.DashboardStack}`: {
-        offset.value = withSpring(0);
-        break;
+    const tabChangeAnimating = () => {
+      console.log('abc');
+      let value = 0;
+      switch (currentTab) {
+        case `/${TabScreenNames.DashboardStack}`: {
+          value = 0;
+          break;
+        }
+        case `/${TabScreenNames.SearchStack}`: {
+          value = 1;
+          break;
+        }
+        case `/${TabScreenNames.TicketsStack}`: {
+          value = 2;
+          break;
+        }
+        case `/${TabScreenNames.AccountStack}`: {
+          value = 3;
+          break;
+        }
       }
-      case `/${TabScreenNames.SearchStack}`: {
-        offset.value = withSpring(1);
-        break;
-      }
-      case `/${TabScreenNames.TicketsStack}`: {
-        offset.value = withSpring(2);
-        break;
-      }
-      case `/${TabScreenNames.AccountStack}`: {
-        offset.value = withSpring(3);
-        break;
-      }
-    }
+
+      const width = Dimensions.get('window').width;
+      const tabWidth = width / 4;
+      offset.value = withSpring(value * tabWidth);
+    };
+
+    tabChangeAnimating();
+
+    const dimensionsHandler = Dimensions.addEventListener(
+      'change',
+      tabChangeAnimating
+    );
+
+    return () => {
+      dimensionsHandler.remove();
+    };
   }, [offset, currentTab]);
 
   const animatedStyles = useAnimatedStyle(() => {
     return {
-      transform: [{ translateX: offset.value * 255 }]
+      transform: [{ translateX: offset.value }]
     };
   });
 
