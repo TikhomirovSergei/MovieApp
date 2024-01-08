@@ -3,18 +3,15 @@ import {
   SafeAreaView,
   StatusBar,
   StyleSheet,
-  View,
   useColorScheme
 } from 'react-native';
-import { useSelector } from 'react-redux';
+
+import { useAppDispatch } from '../store';
 import { Month, getPremieres } from '../services';
-import { RootState, useAppDispatch } from '../store';
+import { PremierCarousel } from '../components';
 
 export const Dashboard = () => {
   const dispatch = useAppDispatch();
-  const { total, items, loading } = useSelector(
-    (state: RootState) => state.premieres
-  );
 
   useEffect(() => {
     dispatch(getPremieres({ year: 2023, month: Month.JANUARY }));
@@ -28,7 +25,7 @@ export const Dashboard = () => {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={styles.container.backgroundColor}
       />
-      <View style={styles.container} />
+      <PremierCarousel />
     </SafeAreaView>
   );
 };
