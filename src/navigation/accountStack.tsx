@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { Dashboard } from '../screens/dashboard';
+import { Empty } from '../screens/empty';
 
 const Stack = createNativeStackNavigator();
 
@@ -13,7 +13,7 @@ export function AccountStack() {
         headerShown: false
       }}
     >
-      <Stack.Screen name="Account" component={Dashboard} />
+      <Stack.Screen name="Account" component={Empty} />
     </Stack.Navigator>
   );
 }

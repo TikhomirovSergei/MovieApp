@@ -18,7 +18,6 @@ export const AnimatedTabBarButton = (
 
   React.useEffect(() => {
     const tabChangeAnimating = () => {
-      console.log('abc');
       let value = 0;
       switch (currentTab) {
         case `/${TabScreenNames.DashboardStack}`: {

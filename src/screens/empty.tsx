@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   SafeAreaView,
   StatusBar,
@@ -6,20 +6,8 @@ import {
   View,
   useColorScheme
 } from 'react-native';
-import { useSelector } from 'react-redux';
-import { Month, getPremieres } from '../services';
-import { RootState, useAppDispatch } from '../store';
 
-export const Dashboard = () => {
-  const dispatch = useAppDispatch();
-  const { total, items, loading } = useSelector(
-    (state: RootState) => state.premieres
-  );
-
-  useEffect(() => {
-    dispatch(getPremieres({ year: 2023, month: Month.JANUARY }));
-  }, [dispatch]);
-
+export const Empty = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
