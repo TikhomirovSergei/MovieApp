@@ -11,8 +11,7 @@ export const PaginationItem: React.FC<{
   index: number;
   length: number;
   animValue: SharedValue<number>;
-}> = props => {
-  const { animValue, index, length } = props;
+}> = ({ index, length, animValue }) => {
   const width = 8;
 
   const animStyle = useAnimatedStyle(() => {
@@ -31,7 +30,7 @@ export const PaginationItem: React.FC<{
             animValue?.value,
             inputRange,
             outputRange,
-            Extrapolation.EXTEND
+            Extrapolation.CLAMP
           )
         }
       ]
@@ -50,6 +49,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 50,
     overflow: 'hidden',
+    marginHorizontal: 2,
     transform: [{ rotateZ: '0deg' }]
   },
   point: {
