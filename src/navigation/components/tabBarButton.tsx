@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { BottomTabBarButtonProps } from '@react-navigation/bottom-tabs';
 import {
-  GestureResponderEvent,
   StyleProp,
   StyleSheet,
   TouchableOpacity,
@@ -12,23 +11,11 @@ import Animated from 'react-native-reanimated';
 
 export const TabBarButton = (
   props: BottomTabBarButtonProps,
-  setCurrentTab: (value: string) => void,
   animatedStyles?: StyleProp<ViewStyle>
 ) => {
-  const onPressHandler = (event: GestureResponderEvent) => {
-    if (props.onPress) {
-      props.onPress(event);
-      props.to && setCurrentTab(props.to);
-    }
-  };
-
   return (
     <View {...props} style={styles.container}>
-      <TouchableOpacity
-        {...props}
-        style={styles.container}
-        onPress={onPressHandler}
-      />
+      <TouchableOpacity {...props} style={styles.container} />
       {animatedStyles ? (
         <Animated.View
           style={[styles.view, styles.animatedView, animatedStyles]}

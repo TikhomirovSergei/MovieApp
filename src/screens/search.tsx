@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   SafeAreaView,
   StatusBar,
@@ -6,17 +6,9 @@ import {
   useColorScheme
 } from 'react-native';
 
-import { useAppDispatch } from '../store';
-import { Month, getPremieres } from '../services';
-import { PremierCarousel, SearchView } from '../components';
+import { SearchView } from '../components';
 
-export const Dashboard = () => {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(getPremieres({ year: 2023, month: Month.JANUARY }));
-  }, [dispatch]);
-
+export const Search = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
@@ -25,8 +17,7 @@ export const Dashboard = () => {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={styles.container.backgroundColor}
       />
-      <SearchView />
-      <PremierCarousel />
+      <SearchView autoFocus={true} />
     </SafeAreaView>
   );
 };
