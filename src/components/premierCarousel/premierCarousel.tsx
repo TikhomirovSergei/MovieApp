@@ -58,12 +58,12 @@ export const PremierCarousel: React.FC = () => {
           const next = items && items[value];
           if (current?.kinopoiskId !== next.kinopoiskId) {
             const endValue = 10;
-            const duration = 100;
+            const duration = 200;
             const easing = Easing.inOut(Easing.ease);
 
             premierItemOffset.value = withSequence(
               withTiming(-endValue, { duration: duration / 2, easing }),
-              withRepeat(withTiming(endValue, { duration, easing }), 2, true),
+              withRepeat(withTiming(endValue, { duration, easing }), 1, true),
               withTiming(0, { duration: duration / 2, easing })
             );
             setCurrent(next);
@@ -76,7 +76,7 @@ export const PremierCarousel: React.FC = () => {
         }}
         data={items}
         renderItem={({ item }) => (
-          <View style={styles.imageContainer}>
+          <View key={item.kinopoiskId} style={styles.imageContainer}>
             <Image
               source={{ uri: item.posterUrlPreview }}
               style={styles.image}
